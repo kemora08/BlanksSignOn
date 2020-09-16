@@ -2,7 +2,7 @@
     <form [formGroup]="formSubmit" class="form-signin" (ngSubmit)="submit()">
         <h1 class="h3 mb-3">Please Sign In</h1>
         <input type="email" formControlName="inputEmail" class="form-Control" placeholder="Email Address">
-        <label class="alert alert-danger" *ngIf="this.formSubmit.controls.inputEmail.invalid && this.formSubmit.controls.inputEmail.touched">Email required</label>
+        <label class="alert alert-danger" *ngIf="!inputEmail.invalid && inputEmail.touched">Email required</label>
         <input type="password" formControlName="inputPassword" class="form-Control" placeholder="Password">
         <label class="alert alert-danger" *ngIf="inputPasswordInvalid">Password required</label>
         <button class="btn btn-sm btn-primary btn-block" type="submit" [disabled]="formSubmit.invalid">Sign in</button>

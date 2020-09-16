@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -10,10 +10,12 @@ import { AuthService } from '../auth/auth.service';
 export class SignInComponent implements OnInit {
 
   formSubmit: FormGroup;
+  inputEmail: FormControl = new FormControl('', Validators.email);
+  inputPassword: FormControl = new FormControl('', Validators.required); )
   validLogin = true;
+
   get inputPasswordInvalid(): boolean {
-    return !this.formSubmit.controls.inputPassword.valid &&
-    this.formSubmit.controls.inputPassword.touched;
+    return !this.inputPassword.valid && this.inputPassword.touched;
   }
 
   get inputPasswordInvalid(): boolean {
@@ -38,9 +40,14 @@ submit(); : void {
   this.validLogin = this.authService.login(this.formSubmit.controls.inputEmail.value,
     this.formSubmit.controls.inputPassword.value);
 
+    const user: IUser = {
+     username: this.inputEmail.value,
+     password: this.inputPassword.value
+    };
+
   if(this.validLogin); {
     this.router.navigate(['/userProfile']);
   }
 
-  
+
 }
