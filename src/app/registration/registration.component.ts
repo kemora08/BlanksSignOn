@@ -23,7 +23,8 @@ export class RegistrationComponent implements OnInit {
    return this.formSubmit.hasError('passwordError');
   }
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder
+              private router: Router) {
 
     this.formSubmit = this.formBuilder.group({
       inputEmail: ['', Validators.email],
@@ -40,6 +41,7 @@ export class RegistrationComponent implements OnInit {
 
   submit(): void {
     console.log(this.formSubmit.value);
+    this.router.navigate(['/signin']);
   }
 
   passwordValidator(control: AbstractControl): ValidationErrors {
