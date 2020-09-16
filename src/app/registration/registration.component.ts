@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -7,6 +9,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
+  [x: string]: any;
   formSubmit: FormGroup;
 
   get inputPasswordInvalid(): boolean {
@@ -23,8 +26,9 @@ export class RegistrationComponent implements OnInit {
    return this.formSubmit.hasError('passwordError');
   }
 
-  constructor(private formBuilder: FormBuilder
-              private router: Router) {
+  constructor(private formBuilder: FormBuilder,
+              private router: Router,
+              authService: AuthService) {
 
     this.formSubmit = this.formBuilder.group({
       inputEmail: ['', Validators.email],
@@ -41,6 +45,8 @@ export class RegistrationComponent implements OnInit {
 
   submit(): void {
     console.log(this.formSubmit.value);
+    this.authService.register(this.formSubmit.controls.username.value,
+       this.formSubmit.controls.inputpassword.value);
     this.router.navigate(['/signin']);
   }
 
@@ -48,16 +54,12 @@ export class RegistrationComponent implements OnInit {
     const password = control.get('inputPassword');
     const confirm = control.get('confirmPassword');
 
-    if(confirm.value !== '' && password.value !== confirm.value) {
+    if (confirm.value !== '' && password.value !== confirm.value) {
       return {passwordError: true};
     }
 
     return null;
   }
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
