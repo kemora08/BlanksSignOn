@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,11 +10,15 @@ export class SignInComponent implements OnInit {
 
   formSubmit: FormGroup;
 
+  get inputPasswordInvalid(): boolean {
+    return !this.formSubmit.controls.inputPassword.valid &&
+    this.formSubmit.controls.inputPassword.touched;
+  }
   constructor(private formBuilder: FormBuilder) {
 
     this.formSubmit = this.formBuilder.group({
-      inputEmail: [''],
-      inputPassword: ['']
+      inputEmail: ['', Validators.email],
+      inputPassword: ['', Validators.required]
     });
    }
 
