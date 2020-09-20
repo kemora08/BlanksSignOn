@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { IUser } from '../iuser';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
 
   formSubmit: FormGroup;
   inputEmail: FormControl = new FormControl('', Validators.email);
@@ -31,6 +32,8 @@ this.formSubmit = this.formBuilder.group({
       inputPassword: ['', Validators.required]
     });
    }
+  ngOnInit(): void {
+  }
 
 
 submit(): void {
@@ -39,10 +42,10 @@ submit(): void {
   this.validLogin = this.authService.login(this.formSubmit.controls.inputEmail.value,
     this.formSubmit.controls.inputPassword.value);
 
- // const user: IUser = {
-   // username: this.inputEmail.value,
-    // password: this.inputPassword.value
-   // };
+  const user: IUser = {
+    username: this.inputEmail.value,
+     password: this.inputPassword.value
+ };
 
   if (this.validLogin) {
     this.router.navigate(['/userProfile']);
