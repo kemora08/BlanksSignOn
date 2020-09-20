@@ -9,7 +9,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 const routes: Routes = [
   { path: 'signin', component: SignInComponent},
   { path: 'register', component: RegistrationComponent},
-  { path: 'userprofile', component: UserProfileComponent, canActivate [AuthGuard] },
+  { path: 'userprofile', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'signon', pathMatch: 'full'}
 ];
 

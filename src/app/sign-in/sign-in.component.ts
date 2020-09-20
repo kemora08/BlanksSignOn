@@ -39,9 +39,9 @@ submit(): void {
   this.validLogin = this.authService.login(this.formSubmit.controls.inputEmail.value,
     this.formSubmit.controls.inputPassword.value);
 
-  //const user: IUser = {
-    // username: this.inputEmail.value,
-    //password: this.inputPassword.value
+ // const user: IUser = {
+   // username: this.inputEmail.value,
+    // password: this.inputPassword.value
    // };
 
   if (this.validLogin) {
